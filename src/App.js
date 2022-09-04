@@ -6,18 +6,23 @@ import axios from 'axios'
 import { TypeAnimation } from 'react-type-animation'
 
 
+/** The main function of the application. */
 function App() {
   const [data, setData] = React.useState({ name: '', age: null, submitted: false, error: null })
 
+  /** onChange handler for the input field. */
   const handleName = e => {
+    // Grab the first name.
     const firstName = e.target.value.split(' ')[0]
+
     setData(prev => ({ ...prev, name: firstName }))
   }
 
-  const handleSubmit = async (e) => {
+  /** onSubmit handler the form. */
+  const handleSubmit = async e => {
     e.preventDefault()
 
-    // Cannot submit without a name.
+    // You should not be able to submit form without a name.
     if (!data.name) {
       return
     }
@@ -28,11 +33,12 @@ function App() {
     await getAgePrediction()
   }
 
+  /** onClick handler for the "backward" button. */
   const handleBackButton = () => {
     setData(prev => ({ name: '', age: null, submitted: false, error: null }))
   }
 
-  // Get age prediction of first name.
+  /** Get age predication for a name. */
   const getAgePrediction = async () => {
     const url = 'https://api.agify.io?name=' + data.name
 
@@ -46,6 +52,7 @@ function App() {
     }
   }
 
+  /** Render the form that accepts a name. */
   const renderFormView = () => {
     return (
       <form onSubmit={handleSubmit}>
@@ -70,6 +77,7 @@ function App() {
     )
   }
 
+  /** Render the correct view after the form has been submitted. */
   const renderResultView = () => {
     if (data.error) {
       return renderErrorView()
@@ -80,6 +88,7 @@ function App() {
     }
   }
 
+  /** Render the successView if submitting was successful. */
   const renderSuccessView = () => {
     const { age } = data
     const sentence = `Hello, ${renderName()}!`
@@ -108,6 +117,7 @@ function App() {
     )
   }
 
+  /** Render the loading view (while consulting the API). */
   const renderLoadingView = () => {
     return (
       <div>
@@ -116,6 +126,7 @@ function App() {
     )
   }
 
+  /** Render the error view. */
   const renderErrorView = () => {
     return (
       <div>
@@ -124,10 +135,11 @@ function App() {
     )
   }
 
-  // Handle rendering of long name.
+  /** Handle the rendering of name.  */
   const renderName = () => {
     const { name } = data
 
+    // Cut the name short if it's too long.
     if (name.length > 20) {
       return name.substring(0, 20) + '..'
     } else {
@@ -135,6 +147,7 @@ function App() {
     }
   }
 
+  /** Return statement. */
   return (
     <div className={styles.container}>
       { data.submitted ? renderResultView() : renderFormView() }
