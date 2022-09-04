@@ -9,6 +9,10 @@ body {
     box-sizing: border-box;
 }
 
+h1 {
+    color: white;
+}
+
 p {
     color: white;
 }

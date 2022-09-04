@@ -55,25 +55,28 @@ function App() {
   /** Render the form that accepts a name. */
   const renderFormView = () => {
     return (
-      <form onSubmit={handleSubmit}>
-          <div className={styles.inputContainer}>
-              <input
-                type="text"
-                value={data.name}
-                onChange={handleName}
-                placeholder="Enter your first name"
-                autoFocus
-                className={styles.input}
-              />
-              <button
-                type="submit"
-                disabled={!data.name}
-                className={styles.btn}
-              >
-                <BsArrowReturnLeft />
-              </button>
-          </div>
-        </form>
+      <div>
+        <h1>Age Predictor</h1>
+        <form onSubmit={handleSubmit}>
+            <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  value={data.name}
+                  onChange={handleName}
+                  placeholder="Enter your first name"
+                  autoFocus
+                  className={styles.input}
+                />
+                <button
+                  type="submit"
+                  disabled={!data.name}
+                  className={styles.btn}
+                >
+                  <BsArrowReturnLeft />
+                </button>
+            </div>
+          </form>
+        </div>
     )
   }
 
